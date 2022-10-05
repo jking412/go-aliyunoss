@@ -1,4 +1,8 @@
-endpoint: https://oss-cn-hangzhou.aliyuncs.com
-accessKeyID: your-access-key-id
-accessKeySecret: your-access-key-secret
-bucketName: go-aliyun-oss
+oss:
+  endpoint: https://oss-cn-hangzhou.aliyuncs.com
+  accessKeyID: your-access-key-id
+  accessKeySecret: your-access-key-secret
+  bucketName: go-aliyun-oss
+
+web:
+  port: 3000

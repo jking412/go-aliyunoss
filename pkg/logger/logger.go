@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func HandleError(arg ...interface{}) {
+func Error(arg ...interface{}) {
 	logrus.Error(arg)
 	os.Exit(1)
 }
