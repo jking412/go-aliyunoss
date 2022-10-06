@@ -1,12 +1,16 @@
 package oss
 
 import (
-	"aliyunoss/pkg/viper"
+	"aliyunoss/pkg/viperlib"
 	"testing"
 )
 
 func TestOss(t *testing.T) {
-	viper.InitViper("../../")
+	viperlib.InitViper("../../", "config.yml")
 	InitOss()
-	ListFile()
+	file, err := ListFile()
+	if err != nil {
+		t.Error(err)
+	}
+	t.Log(file)
 }

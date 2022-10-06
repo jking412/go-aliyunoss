@@ -2,7 +2,6 @@ package oss
 
 import (
 	"aliyunoss/pkg/logger"
-	"fmt"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/spf13/viper"
 )
@@ -22,29 +21,26 @@ func InitOss() {
 	}
 }
 
-func UploadFile(objectName, filePath string) {
+func UploadFile(objectName, filePath string) error {
 	err := Bucket.PutObjectFromFile(objectName, filePath)
-	if err != nil {
-		logger.Error(err)
-	}
+	return err
 }
 
-func DownloadFile(objectName, filePath string) {
+func DownloadFile(objectName, filePath string) error {
 	err := Bucket.GetObjectToFile(objectName, filePath)
-	if err != nil {
-		logger.Error(err)
-	}
+	return err
 }
 
-func ListFile() {
+func ListFile() ([]string, error) {
 	marker := ""
+	lsRes := make([]string, 0)
 	for {
 		lor, err := Bucket.ListObjects(oss.Marker(marker))
 		if err != nil {
-			logger.Error(err)
+			return nil, err
 		}
 		for _, object := range lor.Objects {
-			fmt.Println("Object:", object.Key)
+			lsRes = append(lsRes, object.Key)
 		}
 		if lor.IsTruncated {
 			marker = lor.NextMarker
@@ -52,10 +48,9 @@ func ListFile() {
 			break
 		}
 	}
+	return lsRes, nil
 }
-func DeleteFile(objectName string) {
+func DeleteFile(objectName string) error {
 	err := Bucket.DeleteObject(objectName)
-	if err != nil {
-		logger.Error(err)
-	}
+	return err
 }

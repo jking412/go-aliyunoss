@@ -3,19 +3,20 @@ package cmd
 import (
 	"aliyunoss/app/cmd/web"
 	"aliyunoss/pkg/oss"
-	"aliyunoss/pkg/viper"
+	"aliyunoss/pkg/viperlib"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use: "oss",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
-		viper.InitViper(ConfigPath)
+		viperlib.InitViper(configPath, configName)
 		oss.InitOss()
 	},
 }
 
-var ConfigPath string
+var configPath string
+var configName string
 
 func Execute() error {
 	return rootCmd.Execute()
@@ -23,5 +24,6 @@ func Execute() error {
 
 func init() {
 	rootCmd.AddCommand(web.WebCmd)
-	rootCmd.Flags().StringVarP(&ConfigPath, "config", "c", ".", "config file path")
+	rootCmd.PersistentFlags().StringVarP(&configPath, "config", "c", ".", "config file path")
+	rootCmd.PersistentFlags().StringVarP(&configName, "name", "n", "config", "config file name")
 }

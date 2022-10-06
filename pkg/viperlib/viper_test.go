@@ -1,4 +1,4 @@
-package viper
+package viperlib
 
 import (
 	"github.com/spf13/viper"
@@ -9,7 +9,7 @@ import (
 func TestViper(t *testing.T) {
 	a := assert.New(t)
 
-	InitViper("../../")
+	InitViper("../../", "config.yml")
 	port := viper.GetString("web.port")
 
 	t.Log(port)
