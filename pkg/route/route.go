@@ -1,12 +1,13 @@
 package route
 
 import (
+	"aliyunoss/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter(router *gin.Engine) {
 	registerRouter(router)
 
-	router.Use(gin.Logger(),
-		gin.Recovery())
+	router.Use(middleware.Logger(),
+		middleware.Recovery())
 }

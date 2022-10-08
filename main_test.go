@@ -3,9 +3,11 @@ package main
 import (
 	"aliyunoss/app/model"
 	"aliyunoss/app/model/utils"
+	"aliyunoss/pkg/logger"
 	"aliyunoss/pkg/request"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap"
 	"testing"
 )
 
@@ -73,6 +75,11 @@ func TestJWT(t *testing.T) {
 	t.Log(ossRep.Files)
 
 	utils.DeleteUser(&model.User{Username: "test"})
+}
+
+func TestLogger(t *testing.T) {
+	logger.Error("test", zap.String("test", "test"))
+	logger.Info("test", zap.String("test", "test"))
 }
 
 func register() (*RegisterRep, error) {

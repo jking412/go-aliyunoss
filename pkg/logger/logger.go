@@ -41,7 +41,7 @@ func getEncoder() zapcore.Encoder {
 		MessageKey:     "message",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.CapitalColorLevelEncoder,
+		EncodeLevel:    zapcore.CapitalLevelEncoder,
 		EncodeTime:     customTimeEncoder,
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
@@ -74,4 +74,12 @@ func Error(module string, fields ...zap.Field) {
 
 func Info(module string, fields ...zap.Field) {
 	Logger.Info(module, fields...)
+}
+
+func Debug(module string, fields ...zap.Field) {
+	Logger.Debug(module, fields...)
+}
+
+func Warn(module string, fields ...zap.Field) {
+	Logger.Warn(module, fields...)
 }

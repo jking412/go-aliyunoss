@@ -1,0 +1,18 @@
+2022-10-08 22:50:29	DEBUG	gorm@v1.24.0/callbacks.go:134	Database Query	{"sql": "SELECT count(*) FROM sqlite_master WHERE type='table' AND name=\"users\"", "time": "0.000ms", "rows": -1}
+2022-10-08 22:50:29	DEBUG	gorm@v1.24.0/finisher_api.go:509	Database Query	{"sql": "SELECT sql FROM sqlite_master WHERE type IN (\"table\",\"index\") AND tbl_name = \"users\" AND sql IS NOT NULL order by type = \"table\" desc", "time": "0.000ms", "rows": 1}
+2022-10-08 22:50:29	DEBUG	gorm@v1.24.0/callbacks.go:134	Database Query	{"sql": "SELECT * FROM `users` LIMIT 1", "time": "0.000ms", "rows": -1}
+2022-10-08 22:50:29	ERROR	aliyunoss/main_test.go:81	test	{"test": "test"}
+aliyunoss.TestLogger
+	D:/code/Goland/aliyunoss/main_test.go:81
+testing.tRunner
+	D:/go1.18/src/testing/testing.go:1439
+2022-10-08 22:50:29	INFO	aliyunoss/main_test.go:82	test	{"test": "test"}
+2022-10-08 22:51:14	DEBUG	gorm@v1.24.0/callbacks.go:134	Database Query	{"sql": "SELECT count(*) FROM sqlite_master WHERE type='table' AND name=\"users\"", "time": "0.000ms", "rows": -1}
+2022-10-08 22:51:14	DEBUG	gorm@v1.24.0/finisher_api.go:509	Database Query	{"sql": "SELECT sql FROM sqlite_master WHERE type IN (\"table\",\"index\") AND tbl_name = \"users\" AND sql IS NOT NULL order by type = \"table\" desc", "time": "0.000ms", "rows": 1}
+2022-10-08 22:51:14	DEBUG	gorm@v1.24.0/callbacks.go:134	Database Query	{"sql": "SELECT * FROM `users` LIMIT 1", "time": "0.000ms", "rows": -1}
+2022-10-08 22:51:14	ERROR	aliyunoss/main_test.go:81	test	{"test": "test"}
+aliyunoss.TestLogger
+	D:/code/Goland/aliyunoss/main_test.go:81
+testing.tRunner
+	D:/go1.18/src/testing/testing.go:1439
+2022-10-08 22:51:14	INFO	aliyunoss/main_test.go:82	test	{"test": "test"}
