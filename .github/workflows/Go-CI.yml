@@ -21,8 +21,5 @@ jobs:
       - name: Build
         run: go build -o oss main.go
 
-      - name: Run
-        run: nohup ./oss serve -n config-example &
-
       - name: Test
         run: go test .

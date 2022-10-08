@@ -70,8 +70,6 @@ func TestJWT(t *testing.T) {
 
 	ossRep, err := showBucketList(loginRep.Token)
 
-	a.NotEmpty(ossRep.Files)
-
 	t.Log(ossRep.Files)
 
 	utils.DeleteUser(&model.User{Username: "test"})
