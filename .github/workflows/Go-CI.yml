@@ -19,10 +19,10 @@ jobs:
           go-version: 1.18
 
       - name: Build
-        run: go build -o oss ./app/main.go
+        run: go build -o oss main.go
 
       - name: Run
         run: nohup ./oss serve -n config-example &
 
       - name: Test
-        run: go test ./pkg/route/api_test.go
+        run: go test .

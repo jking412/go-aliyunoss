@@ -2,6 +2,7 @@ package boot
 
 import (
 	"aliyunoss/pkg/database"
+	"aliyunoss/pkg/helper"
 	"aliyunoss/pkg/logger"
 	"aliyunoss/pkg/oss"
 	"aliyunoss/pkg/viperlib"
@@ -9,7 +10,11 @@ import (
 )
 
 func Boot() {
-	viperlib.InitViper(".", "config.yml")
+	if err := helper.FileIsExist("config.yml"); err == nil {
+		viperlib.InitViper(".", "config.yml")
+	} else {
+		viperlib.InitViper(".", "config-example.yml")
+	}
 
 	logger.InitLogger(viper.GetString("logger.logPath"),
 		viper.GetInt("logger.maxSize"),
