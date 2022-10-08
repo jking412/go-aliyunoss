@@ -5,3 +5,4 @@ config.yml
 app/oss.exe
 aliyunoss.db
 aliyunoss.http
+store

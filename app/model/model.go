@@ -6,7 +6,3 @@ type User struct {
 	Password string `json:"password" gorm:"not null;colum:password"`
 	Salt     string `json:"salt;" gorm:"not null;colum:salt"`
 }
-
-func (*User) table() string {
-	return "user"
-}

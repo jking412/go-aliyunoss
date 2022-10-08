@@ -12,3 +12,7 @@ func CreateUser(u *model.User) error {
 func GetUser(u *model.User) error {
 	return database.DB.Where("username = ?", u.Username).First(u).Error
 }
+
+func DeleteUser(u *model.User) error {
+	return database.DB.Where("username = ?", u.Username).Delete(u).Error
+}

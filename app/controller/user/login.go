@@ -37,6 +37,9 @@ func Register(c *gin.Context) {
 		})
 		return
 	}
+	c.JSON(200, gin.H{
+		"message": "注册成功",
+	})
 }
 
 func Login(c *gin.Context) {
@@ -61,4 +64,7 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
+	c.JSON(200, gin.H{
+		"message": "登录成功",
+	})
 }
