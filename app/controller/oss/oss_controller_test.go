@@ -1,4 +1,4 @@
-package controller
+package oss
 
 import (
 	"aliyunoss/pkg/viperlib"

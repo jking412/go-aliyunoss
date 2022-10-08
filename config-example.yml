@@ -1,8 +1,19 @@
 oss:
   endpoint: https://oss-cn-hangzhou.aliyuncs.com
-  accessKeyID: your-access-key-id
-  accessKeySecret: your-access-key-secret
+  accessKeyID: XXX
+  accessKeySecret: XXX
   bucketName: go-aliyun-oss
 
 web:
   port: 3000
+
+database:
+  dbName: aliyunoss.db
+
+logger:
+  path: store/logs/ # 储存路径
+  maxSize: 64 # 日志最大尺寸，单位MB
+  maxBackups: 30 # 最大备份数
+  maxAge: 7 # 日志最大保存时间，单位天
+  compress: true # 是否压缩
+  level: debug # 日志级别

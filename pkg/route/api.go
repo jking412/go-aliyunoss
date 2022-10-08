@@ -1,7 +1,8 @@
 package route
 
 import (
-	"aliyunoss/app/controller"
+	"aliyunoss/app/controller/oss"
+	"aliyunoss/app/controller/user"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,10 +11,16 @@ func registerRouter(router *gin.Engine) {
 
 	ossGroup := router.Group("/oss")
 	{
-		ossGroup.GET("/show", controller.Show)
-		ossGroup.POST("/upload", controller.Upload)
-		ossGroup.POST("/download", controller.Download)
-		ossGroup.POST("/delete", controller.Delete)
+		ossGroup.GET("/show", oss.Show)
+		ossGroup.POST("/upload", oss.Upload)
+		ossGroup.POST("/download", oss.Download)
+		ossGroup.POST("/delete", oss.Delete)
+	}
+
+	userGroup := router.Group("/user")
+	{
+		userGroup.POST("/login", user.Login)
+		userGroup.POST("/register", user.Register)
 	}
 }
 

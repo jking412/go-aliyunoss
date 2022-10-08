@@ -1,8 +1,8 @@
 package viperlib
 
 import (
-	"aliyunoss/pkg/logger"
 	"github.com/spf13/viper"
+	"log"
 )
 
 func InitViper(Config ...string) {
@@ -11,9 +11,8 @@ func InitViper(Config ...string) {
 	viper.SetConfigName(Config[1])
 	err := viper.ReadInConfig()
 	if err != nil {
-		logger.Error(Config[0])
-		logger.Error(Config[1])
-		logger.Error(err)
+		log.Printf("viper.ReadInConfig() failed, err:%v", err)
+		log.Printf("ConfigName: %s, ConfigPath: %s", Config[1], Config[0])
 	}
 	viper.WatchConfig()
 	viper.AutomaticEnv()

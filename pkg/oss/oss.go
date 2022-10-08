@@ -4,20 +4,21 @@ import (
 	"aliyunoss/pkg/logger"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 var Client *oss.Client
 var Bucket *oss.Bucket
 
-func InitOss() {
+func InitOss(endpoint, accessKeyId, accessKeySecret, bucketName string) {
 	var err error
 	Client, err = oss.New(viper.GetString("oss.endpoint"), viper.GetString("oss.accessKeyID"), viper.GetString("oss.accessKeySecret"))
 	if err != nil {
-		logger.Error(err)
+		logger.Error("oss", zap.String("initClient", err.Error()))
 	}
 	Bucket, err = Client.Bucket(viper.GetString("oss.BucketName"))
 	if err != nil {
-		logger.Error(err)
+		logger.Error("oss", zap.String("initBucket", err.Error()))
 	}
 }
 
