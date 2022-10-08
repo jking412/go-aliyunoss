@@ -3,6 +3,8 @@ package user
 import (
 	"aliyunoss/app/model"
 	"aliyunoss/app/model/utils"
+	"aliyunoss/pkg/jwt"
+	"aliyunoss/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,10 +21,7 @@ type LoginReq struct {
 func Register(c *gin.Context) {
 	registerReq := &RegisterReq{}
 	if err := c.ShouldBindJSON(registerReq); err != nil {
-		c.JSON(400, gin.H{
-			"message": "参数错误",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "参数错误")
 		return
 	}
 	user := &model.User{
@@ -31,24 +30,19 @@ func Register(c *gin.Context) {
 		Salt:     "123456",
 	}
 	if err := utils.CreateUser(user); err != nil {
-		c.JSON(400, gin.H{
-			"message": "注册失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "注册失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "注册成功",
+	token, _ := jwt.GenerateToken(user.Id)
+	response.SuccessJSONWithField(c, "注册成功", response.Field{
+		"token": token,
 	})
 }
 
 func Login(c *gin.Context) {
 	loginReq := &LoginReq{}
 	if err := c.ShouldBindJSON(loginReq); err != nil {
-		c.JSON(400, gin.H{
-			"message": "参数错误",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "参数错误")
 		return
 	}
 
@@ -58,13 +52,11 @@ func Login(c *gin.Context) {
 	}
 
 	if err := utils.GetUser(user); err != nil {
-		c.JSON(400, gin.H{
-			"message": "登录失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "登录失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "登录成功",
+	token, _ := jwt.GenerateToken(user.Id)
+	response.SuccessJSONWithField(c, "登录成功", response.Field{
+		"token": token,
 	})
 }

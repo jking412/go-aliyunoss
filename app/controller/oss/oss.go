@@ -2,6 +2,7 @@ package oss
 
 import (
 	"aliyunoss/pkg/oss"
+	"aliyunoss/pkg/response"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,80 +14,52 @@ type OssReq struct {
 func Show(c *gin.Context) {
 	files, err := oss.ListFile()
 	if err != nil {
-		c.JSON(400, gin.H{
-			"message": "获取失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "获取失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "获取成功",
-		"data":    files,
+	response.SuccessJSONWithField(c, "获取成功", response.Field{
+		"files": files,
 	})
 }
 
 func Upload(c *gin.Context) {
 	ossReq := OssReq{}
 	if err := c.ShouldBindJSON(&ossReq); err != nil {
-		c.JSON(400, gin.H{
-			"message": "参数错误",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "参数错误")
 		return
 	}
 
 	if err := oss.UploadFile(ossReq.OssObjectName, ossReq.LocalFile); err != nil {
-		c.JSON(400, gin.H{
-			"message": "上传失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "上传失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "上传成功",
-	})
+	response.SuccessJSON(c, "上传成功")
 }
 
 func Download(c *gin.Context) {
 	ossReq := &OssReq{}
 
 	if err := c.ShouldBindJSON(ossReq); err != nil {
-		c.JSON(400, gin.H{
-			"message": "参数错误",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "参数错误")
 		return
 	}
 	if err := oss.DownloadFile(ossReq.OssObjectName, ossReq.LocalFile); err != nil {
-		c.JSON(400, gin.H{
-			"message": "下载失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "下载失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "下载成功",
-	})
+	response.SuccessJSON(c, "下载成功")
 }
 
 func Delete(c *gin.Context) {
 	ossReq := &OssReq{}
 
 	if err := c.ShouldBindJSON(ossReq); err != nil {
-		c.JSON(400, gin.H{
-			"message": "参数错误",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "参数错误")
 		return
 	}
 	if err := oss.DeleteFile(ossReq.OssObjectName); err != nil {
-		c.JSON(400, gin.H{
-			"message": "删除失败",
-			"error":   err.Error(),
-		})
+		response.ErrorJSON(c, "删除失败")
 		return
 	}
-	c.JSON(200, gin.H{
-		"message": "删除成功",
-	})
+	response.SuccessJSON(c, "删除成功")
 }

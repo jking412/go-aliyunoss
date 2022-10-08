@@ -3,6 +3,7 @@ package route
 import (
 	"aliyunoss/app/controller/oss"
 	"aliyunoss/app/controller/user"
+	"aliyunoss/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,6 +11,7 @@ func registerRouter(router *gin.Engine) {
 	router.GET("/ping", ping)
 
 	ossGroup := router.Group("/oss")
+	ossGroup.Use(middleware.Auth())
 	{
 		ossGroup.GET("/show", oss.Show)
 		ossGroup.POST("/upload", oss.Upload)
@@ -22,6 +24,7 @@ func registerRouter(router *gin.Engine) {
 		userGroup.POST("/login", user.Login)
 		userGroup.POST("/register", user.Register)
 	}
+
 }
 
 func ping(c *gin.Context) {
