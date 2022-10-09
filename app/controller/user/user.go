@@ -46,15 +46,19 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	user := &model.User{
-		Username: loginReq.Username,
-		Password: loginReq.Password,
-	}
+	user := &model.User{}
 
-	if err := utils.GetUser(user); err != nil {
+	if _user, err := utils.GetUser(&model.User{Username: loginReq.Username}); err != nil {
 		response.ErrorJSON(c, "登录失败")
 		return
+	} else {
+		user = _user
+		if user.Password != loginReq.Password {
+			response.ErrorJSON(c, "登录失败")
+			return
+		}
 	}
+
 	token, _ := jwt.GenerateToken(user.Id)
 	response.SuccessJSONWithField(c, "登录成功", response.Field{
 		"token": token,

@@ -17,3 +17,8 @@ logger:
   maxAge: 7 # 日志最大保存时间，单位天
   compress: true # 是否压缩
   level: debug # 日志级别
+
+cors:
+  allowOrigins:
+    - XXX
+    - XXX

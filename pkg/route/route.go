@@ -6,8 +6,9 @@ import (
 )
 
 func InitRouter(router *gin.Engine) {
-	registerRouter(router)
-
-	router.Use(middleware.Logger(),
+	router.Use(middleware.Cors(),
+		middleware.Logger(),
 		middleware.Recovery())
+
+	registerRouter(router)
 }
